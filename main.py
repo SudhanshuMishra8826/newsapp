@@ -8,13 +8,19 @@ from functools import lru_cache
 
 app = FastAPI()
 
+#including static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+#including templates
 templates = Jinja2Templates(directory="templates")
 
+#including headers for authentication
 headers = {
     "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"
 }
 
+#API to search news from News APi
+#LRU chace to store 2 recent topic  
 @lru_cache(2)
 def NewsSearchApiReq(q):
     try:
@@ -25,6 +31,9 @@ def NewsSearchApiReq(q):
     except:
         return []
 
+
+#API to search news from Reddit APi
+#LRU chace to store 2 recent topic  
 @lru_cache(2)
 def RedditSearchApiReq(q):
     try:
@@ -36,6 +45,8 @@ def RedditSearchApiReq(q):
         return []
 
 
+
+#API for general news from News API
 def NewsApiReq():
     try:
         x = requests.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=dd97e3a712ef4d4d9f4465c3a5a2abf7')
@@ -45,6 +56,7 @@ def NewsApiReq():
     except:
         return []
 
+#API for general news from News API
 def RedditApiReq():
     try:
         reddit = requests.get('https://www.reddit.com/search.json?q=news',headers=headers)
@@ -54,6 +66,10 @@ def RedditApiReq():
     except:
         return[]
 
+
+#Renders Raw Data
+
+#Renders General News Data from News Api
 
 @app.get("/")
 async def root(request:Request):
@@ -66,6 +82,8 @@ async def root(request:Request):
 
     return res
 
+#Renders General News Data from Reddit Api
+
 @app.get("/search")
 async def news(request:Request, q: str = ""):
 
@@ -77,6 +95,9 @@ async def news(request:Request, q: str = ""):
 
     return res
 
+#Renders HTML Pages
+
+#Renders General News
 @app.get("/home")
 async def root(request:Request):
     
@@ -88,6 +109,7 @@ async def root(request:Request):
 
     return templates.TemplateResponse("item.html", {"request": request, "items": res})
 
+#Renders Specific News through search
 @app.get("/news")
 async def news(request:Request, q: str = ""):
 
