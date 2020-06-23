@@ -1,7 +1,9 @@
 # News Aggregator
-An application that aggregates news from two different APIs.
-Reddit
-News Api
+An application that aggregates news from two different APIs
+
+>Reddit
+
+>News Api
 
 ## Installation
 
