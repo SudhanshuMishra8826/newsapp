@@ -61,6 +61,7 @@ Every route calls two functions one and combines the responses to return as a we
 
 ### Adding new API to the Aggregator
 
-###### 1: Replicate the design of the functions that call that api from the existing serch or general functions. Make sure to iterate through the api response to convert it into a list of dictionaries with headline, link and source as keys, just like existing functions.
-###### 2: In the routes add a call to that function and append the response data to the final array. 
+###### 1: Replicate the design of the functions that call that api from the existing serch or general functions. 
+###### 2:Make sure to iterate through the api response to convert it into a list of dictionaries with headline, link and source as keys, just like existing functions.
+###### 3: In the routes add a call to that function and append the response data to the final array. 
 
