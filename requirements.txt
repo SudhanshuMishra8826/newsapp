@@ -9,7 +9,7 @@ httptools==0.1.1
 idna==2.9
 Jinja2==2.11.2
 MarkupSafe==1.1.1
-pydantic==1.5.1
+pydantic==1.6.2
 requests==2.24.0
 starlette==0.13.4
 urllib3==1.25.9
